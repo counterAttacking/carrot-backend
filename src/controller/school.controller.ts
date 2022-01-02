@@ -28,6 +28,7 @@ router.get('/:schoolId', async (req, res) => {
     return res.status(200).json(school);
 });
 
+// Database에 학교 정보 생성
 router.post('/', (req, res) => {
     const school: School = req.body as School;
     if (!school) {
@@ -39,6 +40,6 @@ router.post('/', (req, res) => {
     });
 
     return res.status(201).json();
-})
+});
 
 export default router;
