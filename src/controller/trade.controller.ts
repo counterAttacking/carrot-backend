@@ -13,7 +13,18 @@ type NewArticle = {
 const router = express.Router();
 
 // Database에 존재하는 거래 정보 모두 불러오기
+// 지역 정보를 입력한 경우 지역이 동일한 거래 정보 모두 불러오기
 router.get('/articles', async (req, res) => {
+    const locQuery = req.query.loc;
+    // const { location } = req.query; // destructing
+    if (locQuery) {
+        const locArticles: Article[] = await Article.findAll({
+            where: {
+                location: locQuery,
+            },
+        });
+        return res.status(200).json(locArticles);
+    }
     const articles: Article[] = await Article.findAll();
     return res.status(200).json(articles);
 });
